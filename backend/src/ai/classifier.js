@@ -3,10 +3,16 @@ import OpenAI from "openai";
 
 dotenv.config();
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI client only if API key is available
+let openai = null;
+if (
+    process.env.OPENAI_API_KEY &&
+    process.env.OPENAI_API_KEY !== "your_openai_api_key_here"
+) {
+    openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+}
 
 const MODEL_VERSION = process.env.OPENAI_MODEL || "gpt-4";
 
@@ -51,6 +57,13 @@ Be conservative in classification - only mark as political violence if clearly e
  */
 export async function classifyArticle(article) {
     try {
+        // Check if OpenAI is available
+        if (!openai) {
+            throw new Error(
+                "OpenAI API key not configured. Please set OPENAI_API_KEY in .env file"
+            );
+        }
+
         const prompt = CLASSIFICATION_PROMPT.replace(
             "{title}",
             article.title || ""
