@@ -1,0 +1,83 @@
+{
+    "name": "redline-backend",
+    "version": "1.0.0",
+    "description": "Backend API for Bangladesh Political Violence Tracker",
+    "main": "src/server.js",
+    "type": "module",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "dev": "nodemon src/server.js",
+        "start": "node src/server.js",
+        "build": "echo 'No build step required for Node.js'",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "lint": "eslint src/ --ext .js",
+        "lint:fix": "eslint src/ --ext .js --fix",
+        "db:setup": "node scripts/setup-database.js",
+        "db:migrate": "node scripts/migrate.js",
+        "db:seed": "node scripts/seed.js",
+        "scrape": "node src/scrapers/run-scrapers.js",
+        "scrape:single": "node src/scrapers/run-single.js",
+        "classify": "node src/ai/classify-articles.js",
+        "extract": "node src/ai/extract-incidents.js",
+        "geocode": "node src/ai/geocode-locations.js"
+    },
+    "keywords": [
+        "political-violence",
+        "news-scraping",
+        "ai-classification",
+        "bangladesh",
+        "express",
+        "postgresql"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "cors": "^2.8.5",
+        "helmet": "^7.1.0",
+        "morgan": "^1.10.0",
+        "dotenv": "^16.3.1",
+        "pg": "^8.11.3",
+        "pg-pool": "^3.6.1",
+        "openai": "^4.20.1",
+        "puppeteer": "^21.5.2",
+        "cheerio": "^1.0.0-rc.12",
+        "node-cron": "^3.0.3",
+        "express-rate-limit": "^7.1.5",
+        "express-validator": "^7.0.1",
+        "bcryptjs": "^2.4.3",
+        "jsonwebtoken": "^9.0.2",
+        "winston": "^3.11.0",
+        "redis": "^4.6.10",
+        "nodemailer": "^6.9.7",
+        "crypto": "^1.0.1",
+        "axios": "^1.6.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2",
+        "jest": "^29.7.0",
+        "supertest": "^6.3.3",
+        "eslint": "^8.54.0",
+        "@babel/preset-env": "^7.23.5",
+        "babel-jest": "^29.7.0"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "transform": {
+            "^.+\\.js$": "babel-jest"
+        },
+        "collectCoverageFrom": [
+            "src/**/*.js",
+            "!src/server.js"
+        ]
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
+    }
+}
